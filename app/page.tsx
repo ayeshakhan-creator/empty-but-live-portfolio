@@ -1,3 +1,7 @@
+"use client";
+
+import { FormEvent } from "react";
+
 const projects = [
   {
     title: "FlyRank Frontend Capstone",
@@ -21,6 +25,28 @@ const projects = [
   },
 ];
 
+function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const message = formData.get("message");
+
+  const subject = encodeURIComponent(
+    `Portfolio Contact from ${name}`
+  );
+
+  const body = encodeURIComponent(
+    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+  );
+
+  window.location.href =
+    `mailto:ayeshakhanapril@gmail.com?subject=${subject}&body=${body}`;
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -35,12 +61,15 @@ export default function Home() {
             <a href="#home" className="hover:text-white">
               Home
             </a>
+
             <a href="#about" className="hover:text-white">
               About
             </a>
+
             <a href="#projects" className="hover:text-white">
               Projects
             </a>
+
             <a href="#contact" className="hover:text-white">
               Contact
             </a>
@@ -99,7 +128,7 @@ export default function Home() {
             A work-in-progress portfolio
           </h2>
 
-          <p className="mt-6 max-w-3xl text-slate-300 leading-8">
+          <p className="mt-6 max-w-3xl leading-8 text-slate-300">
             I am currently developing my skills in frontend engineering,
             artificial intelligence, and modern web technologies. This
             portfolio collects projects and learning milestones that show how
@@ -110,6 +139,7 @@ export default function Home() {
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             <div className="rounded-2xl border border-white/10 bg-slate-950 p-6">
               <h3 className="font-bold">Frontend</h3>
+
               <p className="mt-2 text-sm text-slate-400">
                 React, Next.js, TypeScript and Tailwind CSS.
               </p>
@@ -117,6 +147,7 @@ export default function Home() {
 
             <div className="rounded-2xl border border-white/10 bg-slate-950 p-6">
               <h3 className="font-bold">AI</h3>
+
               <p className="mt-2 text-sm text-slate-400">
                 AI SDKs, prompt engineering and AI-assisted development.
               </p>
@@ -124,6 +155,7 @@ export default function Home() {
 
             <div className="rounded-2xl border border-white/10 bg-slate-950 p-6">
               <h3 className="font-bold">Learning</h3>
+
               <p className="mt-2 text-sm text-slate-400">
                 Building projects and learning through practical assignments.
               </p>
@@ -200,44 +232,154 @@ export default function Home() {
             <li>• More detailed case studies need to be added.</li>
             <li>• Project screenshots and visual assets are still limited.</li>
             <li>• Mobile responsiveness needs additional testing.</li>
-            <li>• More accessibility and performance improvements are planned.</li>
+            <li>
+              • More accessibility and performance improvements are planned.
+            </li>
           </ul>
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="mx-auto max-w-6xl px-6 py-20">
-        <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">
-          Contact
-        </p>
+      <section
+        id="contact"
+        className="border-t border-white/10 bg-slate-950"
+      >
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">
+            Contact
+          </p>
 
-        <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-          Let&apos;s connect
-        </h2>
+          <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+            Let&apos;s connect
+          </h2>
 
-        <p className="mt-5 max-w-xl leading-7 text-slate-300">
-          I&apos;m open to connecting with developers, designers, recruiters,
-          and people interested in AI and frontend engineering.
-        </p>
+          <p className="mt-5 max-w-xl leading-7 text-slate-300">
+            I&apos;m open to connecting with developers, designers,
+            recruiters, and people interested in AI and frontend engineering.
+          </p>
 
-        <div className="mt-8 flex flex-wrap gap-4">
-          <a
-            href="https://github.com/ayeshakhan-creator"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-white/20 px-6 py-3 font-semibold hover:bg-white/10"
-          >
-            GitHub
-          </a>
+          <div className="mt-10 grid gap-10 md:grid-cols-2">
+            {/* CONTACT FORM */}
+            <div className="rounded-2xl border border-white/10 bg-slate-900 p-6">
+              <h3 className="text-xl font-bold">
+                Send a Message
+              </h3>
 
-          <a
-            href="https://www.linkedin.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-white/20 px-6 py-3 font-semibold hover:bg-white/10"
-          >
-            LinkedIn
-          </a>
+              <form
+                onSubmit={handleContactSubmit}
+                className="mt-6 space-y-5"
+              >
+                {/* NAME */}
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="mb-2 block text-sm font-medium text-slate-300"
+                  >
+                    Name
+                  </label>
+
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    placeholder="Your name"
+                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-blue-500"
+                  />
+                </div>
+
+                {/* EMAIL */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="mb-2 block text-sm font-medium text-slate-300"
+                  >
+                    Email
+                  </label>
+
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@example.com"
+                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-blue-500"
+                  />
+                </div>
+
+                {/* MESSAGE */}
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="mb-2 block text-sm font-medium text-slate-300"
+                  >
+                    Message
+                  </label>
+
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    required
+                    placeholder="Write your message..."
+                    className="w-full resize-none rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-blue-500"
+                  />
+                </div>
+
+                {/* SUBMIT */}
+                <button
+                  type="submit"
+                  className="rounded-full bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-500"
+                >
+                  Send Message →
+                </button>
+              </form>
+            </div>
+
+            {/* SOCIAL LINKS */}
+            <div className="flex flex-col justify-center">
+              <h3 className="text-xl font-bold">
+                Find me online
+              </h3>
+
+              <p className="mt-4 max-w-md leading-7 text-slate-400">
+                You can also connect with me through GitHub and LinkedIn.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a
+                  href="https://github.com/ayeshakhan-creator"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/20 px-6 py-3 font-semibold transition hover:border-blue-500 hover:bg-white/10"
+                >
+                  GitHub
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/20 px-6 py-3 font-semibold transition hover:border-blue-500 hover:bg-white/10"
+                >
+                  LinkedIn
+                </a>
+              </div>
+
+              <div className="mt-8 rounded-2xl border border-white/10 bg-slate-900 p-6">
+                <p className="text-sm text-slate-400">
+                  Email
+                </p>
+
+                <a
+                  href="mailto:ayeshakhanapril@gmail.com"
+                  className="mt-2 inline-block font-medium text-blue-400 hover:text-blue-300"
+                >
+                  ayeshakhanapril@gmail.com
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
